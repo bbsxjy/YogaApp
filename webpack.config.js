@@ -1,5 +1,5 @@
 var config = {
-   entry: './Root.tsx',
+   entry: './app.tsx',
    
    output: {
       path:__dirname + './',
@@ -24,6 +24,6 @@ var config = {
          }
       ]
    }
-}
+};
 
 module.exports = config;
