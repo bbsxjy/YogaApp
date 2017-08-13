@@ -36,8 +36,16 @@
     "es2015"
   ],
   "dependencies": {
+    "@types/react": "^16.0.2",
+    "@types/react-bootstrap": "0.0.52",
+    "@types/react-bootstrap-table": "^2.6.6",
+    "@types/react-dom": "^15.5.2",
+    "@types/react-router": "^4.0.14",
     "react": "^15.6.1",
+    "react-bootstrap": "^0.31.2",
+    "react-bootstrap-table": "^4.0.0",
     "react-dom": "^15.6.1",
+    "react-router": "^4.1.2",
     "webpack": "^3.4.1",
     "webpack-dev-server": "^2.6.1"
   }
