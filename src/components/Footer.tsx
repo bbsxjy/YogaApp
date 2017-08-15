@@ -1,7 +1,11 @@
 import * as React from "react";
+import * as ReactRouter from "react-router";
 
-export class Footer extends React.Component {
-    render () {
+interface FooterProps extends ReactRouter.RouteComponentProps<any, {}> {
+}
+
+export class Footer extends React.Component <FooterProps, {}> {
+    render() {
         return (
             <footer>
                 <div className="container">

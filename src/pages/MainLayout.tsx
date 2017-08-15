@@ -10,7 +10,7 @@ export class MainLayout extends React.Component {
                 <div className="page-container">
                     {this.props.children}
                 </div>
-                <Footer/>
+                <Footer {...this.props}/>
             </div>
         );
     }

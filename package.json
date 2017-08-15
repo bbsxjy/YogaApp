@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "bb test",
-    "start": "webpack-dev-server --hot"
+    "start": "webpack-dev-server --hot --history-api-fallback"
   },
   "repository": {
     "type": "git",
