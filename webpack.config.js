@@ -1,3 +1,4 @@
+var webpack = require('webpack');
 var config = {
    entry: './app.tsx',
    
@@ -23,7 +24,15 @@ var config = {
             }
          }
       ]
-   }
+   },
+
+    plugins: [
+        new webpack.ProvidePlugin({
+            $: "jquery",
+            "window.jQuery": "jquery",
+            "moment": "moment"
+        })
+    ]
 };
 
 module.exports = config;
