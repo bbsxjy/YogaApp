@@ -1,16 +1,27 @@
 import * as React from "react";
 import $ from "jquery";
 import "fullcalendar"
+import {SeatsModal} from "./SeatsModal.tsx";
 
 //Assign node as calendar dom node
 let node = undefined;
 interface CalendarProps {
     events: Array
 }
+interface CalendarState {
+    className: string
+}
 
-export class Calendar extends React.Component<CalendarProps,{}> {
+export class Calendar extends React.Component<CalendarProps,CalendarState> {
+    constructor() {
+        super();
+        this.state = {
+            className: ""
+        };
+    }
 
     componentDidMount() {
+        const that = (this);
         $(node).fullCalendar({
             locale: "zh-cn",
             header: {
@@ -28,15 +39,24 @@ export class Calendar extends React.Component<CalendarProps,{}> {
             allDayText: "全天",
             navLinks: true, // can click day/week names to navigate views
             eventLimit: true, // allow "more" link when too many events
+            //allow event call back
+            eventClick: function(calEvent, jsEvent, view) {
+                that.setState({
+                    className: calEvent.title
+                })
+            }
         });
         $(node).fullCalendar('addEventSource', this.props.events);
     }
 
     render() {
         return (
-            <div id="calendar"
-                 ref={el => node = el}
-                 className="container">
+            <div>
+                <div id="calendar"
+                     ref={el => node = el}
+                     className="container">
+                </div>
+                <SeatsModal className={this.state.className}/>
             </div>
         );
     }
