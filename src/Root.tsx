@@ -5,6 +5,7 @@ import createBrowserHistory from "history/createBrowserHistory";
 import {MainLayout} from "./pages/MainLayout.tsx";
 import {HomePage} from "./pages/home/HomePage.tsx";
 import {SchedulerPage} from "./pages/scheduler/SchedulerPage.tsx";
+import {CategoryPage} from "./pages/category/CategoryPage.tsx";
 import {ErrorPage} from "./pages/error/ErrorPage.tsx";
 
 const browserHistory = createBrowserHistory();
@@ -17,6 +18,7 @@ export class Root extends React.Component {
                     <Switch>
                         <Route exact path={Routes.home} component={HomePage}/>
                         <Route path={Routes.scheduler} component={SchedulerPage}/>
+                        <Route path={Routes.category} component={CategoryPage}/>
                         <Route path="*" component={ErrorPage}/>
                     </Switch>
                 </MainLayout>

@@ -39,6 +39,12 @@ export class Calendar extends React.Component<CalendarProps,CalendarState> {
             allDayText: "全天",
             navLinks: true, // can click day/week names to navigate views
             eventLimit: true, // allow "more" link when too many events
+            businessHours: {
+                // days of week. an array of zero-based day of week integers (0=Sunday)
+                dow: [ 1, 2, 3, 4, 5 ], // Monday - Thursday
+                start: '9:00', // a start time (10am in this example)
+                end: '21:00', // an end time (6pm in this example)
+            },
             //allow event call back
             eventClick: function(calEvent, jsEvent, view) {
                 that.setState({
