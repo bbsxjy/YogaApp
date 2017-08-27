@@ -1,6 +1,6 @@
 var webpack = require('webpack');
 var config = {
-   entry: './app.tsx',
+   entry: './client/app.tsx',
    
    output: {
       path:__dirname + './',
