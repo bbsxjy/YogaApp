@@ -1,6 +1,7 @@
 import * as React from "react";
 import {Calendar} from "../../components/Calendar.tsx";
-import * as ReactRouter from "react-router";
+import {ListGroup, ListGroupItem, Panel} from 'react-bootstrap';
+
 
 interface SchedulerProps {
     category: number,
@@ -10,28 +11,45 @@ interface SchedulerProps {
 export class SchedulerPage extends React.Component<SchedulerProps,{}> {
 
     render () {
-        console.log(location.search);
         const event:Array = [
             {
-                id: this.props.category,
-                title: 'event' + this.props.id,
+                id: 1,
+                title: 'event',
                 start: '2017-08-18T10:30:00',
                 end: '2017-08-18T16:30:00'
             }
         ];
-        if (location.search){
-            return (
-                <section>
-                    <Calendar events={event}/>
-                </section>
-            );
-        } else{
-            return (
-                <section className="container">
-                    <h1>你需要选择查看种类才能看到课表哦！</h1>
-                </section>
-            );
-        }
 
+        return (
+            <section className="container">
+                <Panel header="请选择下面的种类来查看课程表">
+                    <ListGroup fill>
+
+                        <ListGroupItem>
+                            <ListGroup fill className="list-inline">
+                                按授课老师：
+                                <ListGroupItem className="borderless"><a>全部</a></ListGroupItem>
+                                <ListGroupItem className="borderless"><a>孙老师</a></ListGroupItem>
+                                <ListGroupItem className="borderless"><a>王老师</a></ListGroupItem>
+                                <ListGroupItem className="borderless"><a>小琴老师</a></ListGroupItem>
+                            </ListGroup>
+                        </ListGroupItem>
+
+                        <ListGroupItem>
+                            <ListGroup fill className="list-inline">
+                                按课程名称：
+                                <ListGroupItem className="borderless"><a>全部</a></ListGroupItem>
+                                <ListGroupItem className="borderless"><a>阿诗汤加</a></ListGroupItem>
+                                <ListGroupItem className="borderless"><a>空中瑜伽</a></ListGroupItem>
+                                <ListGroupItem className="borderless"><a>产孕瑜伽</a></ListGroupItem>
+                            </ListGroup>
+                        </ListGroupItem>
+
+                    </ListGroup>
+                </Panel>
+
+                <Calendar events={event}/>
+            </section>
+        );
     }
 }

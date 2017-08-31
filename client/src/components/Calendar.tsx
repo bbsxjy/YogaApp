@@ -59,9 +59,7 @@ export class Calendar extends React.Component<CalendarProps,CalendarState> {
         return (
             <div>
                 <div id="calendar"
-                     ref={el => node = el}
-                     className="container">
-                </div>
+                     ref={el => node = el}/>
                 <SeatsModal className={this.state.className}/>
             </div>
         );

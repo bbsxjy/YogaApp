@@ -16,7 +16,7 @@ export class HomePage extends React.Component<HomeProps, {}> {
                         <div className="intro-text">
                             <div className="intro-lead-in">Life is all about Yoga</div>
                             <div className="intro-heading">圣玛瑜伽欢迎您</div>
-                            <Link to={Routes.category}>
+                            <Link to={Routes.scheduler}>
                                 <Button className="btn btn-xl" id="classButton">
                                     点我预约课程
                                 </Button>
