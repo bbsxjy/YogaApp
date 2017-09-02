@@ -5,18 +5,26 @@ import * as logger from "morgan";
 import * as path from "path";
 import {IndexRoute} from "./routes/index";
 //models
-import {GeneralModel} from "./models/MGeneral"; //import IModel
-import {UserModel} from "./models/MUser"; //import IUserModel
+import {GeneralModel} from "./models/GeneralModel"; //import IModel
+import {CourseModel, MemberModel, SeatModel, TeacherModel, UserModel} from "./models/Models"; //import IUserModel
 //schemas
-import {UserSchema} from "./schemas/SUser"; //import UserSchema
+import {UserSchema} from "./schemas/UserSchema"; //import UserSchema
 import errorHandler = require("errorhandler");
 import methodOverride = require("method-override");
 import mongoose = require("mongoose"); //import mongoose
+import {ErrorRoute} from "./routes/error";
+import {MemberSchema} from "./schemas/MemberSchema";
+import {TeacherSchema} from "./schemas/TeacherSchema";
+import {CourseSchema} from "./schemas/CourseSchema";
+import {SeatSchema} from "./schemas/SeatSchema";
+import {UserRoute} from "./routes/user";
 
 export class Server {
     public app: express.Application;
 
     private model: GeneralModel;
+
+    private router: express.Router;
 
     /**
      * Bootstrap the application.
@@ -42,19 +50,6 @@ export class Server {
 
         //add routes
         this.routes();
-
-        //add api
-        this.api();
-    }
-
-    /**
-     * Create REST API routes
-     *
-     * @class Server
-     * @method api
-     */
-    public api() {
-        //empty for now
     }
 
     /**
@@ -96,9 +91,14 @@ export class Server {
 
         //connect to mongoose
         let connection: mongoose.Connection = mongoose.createConnection(MONGODB_CONNECTION);
+        console.log("MongoDB connected" + connection);
 
-        //create models
+        //connect to models
         this.model.user = connection.model<UserModel>("User", UserSchema);
+        this.model.member = connection.model<MemberModel>("Member", MemberSchema);
+        this.model.teacher = connection.model<TeacherModel>("Teacher", TeacherSchema);
+        this.model.course = connection.model<CourseModel>("Course", CourseSchema);
+        this.model.seat = connection.model<SeatModel>("Seat", SeatSchema);
 
         //catch 404 and forward to error handler
         this.app.use(function (err: any, req: express.Request, res: express.Response, next: express.NextFunction) {
@@ -117,13 +117,14 @@ export class Server {
      * @method api
      */
     public routes() {
-        let router: express.Router;
-        router = express.Router();
-
+        this.router = express.Router();
         //IndexRoute
-        IndexRoute.create(router);
-
+        IndexRoute.create(this.router);
         //use router middleware
-        this.app.use(router);
+        UserRoute.create(this.router, this.model.user);
+        //ErrorRoute
+        ErrorRoute.create(this.router);
+
+        this.app.use(this.router);
     }
 }

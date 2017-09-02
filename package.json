@@ -4,7 +4,7 @@
   "description": "Package for yoga class scheduler",
   "main": "index.js",
   "scripts": {
-    "test": "node ./server/bin/www",
+    "test": "npm run grunt && nodemon ./server/bin/www",
     "dev": "SET NODE_ENV=development && nodemon ./server/bin/www",
     "start": "webpack-dev-server --hot --history-api-fallback",
     "grunt": "grunt"

@@ -13,10 +13,18 @@ export class SchedulerPage extends React.Component<SchedulerProps,{}> {
     render () {
         const event:Array = [
             {
+                id: 999,
+                title: '空中瑜伽',
+                start: '10:30:00',
+                end: '14:30:00',
+                dow: [ 1, 4 ]
+            },
+            {
                 id: 1,
-                title: 'event',
-                start: '2017-08-18T10:30:00',
-                end: '2017-08-18T16:30:00'
+                title: '热力瑜伽',
+                start: '10:30:00',
+                end: '14:30:00',
+                dow: [ 3, 5 ]
             }
         ];
 

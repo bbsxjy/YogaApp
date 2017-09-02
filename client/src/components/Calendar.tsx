@@ -2,6 +2,7 @@ import * as React from "react";
 import $ from "jquery";
 import "fullcalendar"
 import {SeatsModal} from "./SeatsModal.tsx";
+import {Moment} from "moment"
 
 //Assign node as calendar dom node
 let node = undefined;
@@ -9,14 +10,18 @@ interface CalendarProps {
     events: Array
 }
 interface CalendarState {
-    className: string
+    className: string,
+    classId: number,
+    classTime: number
 }
 
 export class Calendar extends React.Component<CalendarProps,CalendarState> {
     constructor() {
         super();
         this.state = {
-            className: ""
+            className: "",
+            classId: 0,
+            classTime: 0
         };
     }
 
@@ -48,7 +53,9 @@ export class Calendar extends React.Component<CalendarProps,CalendarState> {
             //allow event call back
             eventClick: function(calEvent, jsEvent, view) {
                 that.setState({
-                    className: calEvent.title
+                    className: calEvent.title,
+                    classId: calEvent.id,
+                    classTime: calEvent.start.toDate().getTime()
                 })
             }
         });
@@ -60,7 +67,9 @@ export class Calendar extends React.Component<CalendarProps,CalendarState> {
             <div>
                 <div id="calendar"
                      ref={el => node = el}/>
-                <SeatsModal className={this.state.className}/>
+                <SeatsModal className={this.state.className}
+                            classId={this.state.classId}
+                            classTime={this.state.classTime}/>
             </div>
         );
     }

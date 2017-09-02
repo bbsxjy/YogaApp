@@ -36,7 +36,7 @@ export class HomePage extends React.Component<HomeProps, {}> {
                         <div className="row">
                             <div className="col-sm-4">
                                 <div className="team-member">
-                                    <img className="mx-auto img-circle" src="../../../assets/img/team/1.jpg" alt=""/>
+                                    <img className="mx-auto img-circle" src="../../../../client/assets/img/team/1.jpg" alt=""/>
                                     <h4>Kay Garland</h4>
                                     <p className="text-muted">Lead Designer</p>
                                     <ul className="list-inline social-buttons">
@@ -60,7 +60,7 @@ export class HomePage extends React.Component<HomeProps, {}> {
                             </div>
                             <div className="col-sm-4">
                                 <div className="team-member">
-                                    <img className="mx-auto img-circle" src="../../../assets/img/team/2.jpg" alt=""/>
+                                    <img className="mx-auto img-circle" src="../../../../client/assets/img/team/2.jpg" alt=""/>
                                     <h4>Larry Parker</h4>
                                     <p className="text-muted">Lead Marketer</p>
                                     <ul className="list-inline social-buttons">
@@ -84,7 +84,7 @@ export class HomePage extends React.Component<HomeProps, {}> {
                             </div>
                             <div className="col-sm-4">
                                 <div className="team-member">
-                                    <img className="mx-auto img-circle" src="../../../assets/img/team/3.jpg" alt=""/>
+                                    <img className="mx-auto img-circle" src="../../../../client/assets/img/team/3.jpg" alt=""/>
                                     <h4>Diana Pertersen</h4>
                                     <p className="text-muted">Lead Developer</p>
                                     <ul className="list-inline social-buttons">
