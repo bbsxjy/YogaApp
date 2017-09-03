@@ -1,32 +1,48 @@
 import * as React from "react";
 import {Calendar} from "../../components/Calendar.tsx";
 import {ListGroup, ListGroupItem, Panel} from 'react-bootstrap';
+import axios from 'axios';
 
 interface SchedulerProps {
-    category: number,
-    id: number
 }
 
-export class SchedulerPage extends React.Component<SchedulerProps,{}> {
+interface SchedulerStates {
+    events: Array
+}
+
+export class SchedulerPage extends React.Component<SchedulerProps,SchedulerStates> {
+
+    constructor() {
+        super();
+        this.state = {
+            events: []
+        }
+    }
+    componentWillMount(){
+        axios.get('http://localhost:8081/api/course/get')
+            .then(response => {
+                const docs = response.data.documents;
+                let events: Array = [];
+                docs.forEach(function (value, index, array) {
+                    let event = {
+                        id: value.id,
+                        title: value.name,
+                        start: value.time.start,
+                        end: value.time.end,
+                        dow: value.time.repeatFor
+                    };
+                    events.push(event);
+                });
+                this.setState({
+                    events: events
+                });
+            })
+            .catch(function (error) {
+                console.log(error);
+            })
+    }
 
     render () {
-        const event:Array = [
-            {
-                id: 999,
-                title: '空中瑜伽',
-                start: '10:30:00',
-                end: '14:30:00',
-                dow: [ 1, 4 ]
-            },
-            {
-                id: 1,
-                title: '热力瑜伽',
-                start: '10:30:00',
-                end: '14:30:00',
-                dow: [ 3, 5 ]
-            }
-        ];
-
         return (
             <section className="container">
                 <Panel header="请选择下面的种类来查看课程表">
@@ -55,7 +71,7 @@ export class SchedulerPage extends React.Component<SchedulerProps,{}> {
                     </ListGroup>
                 </Panel>
 
-                <Calendar events={event}/>
+                <Calendar events={this.state.events}/>
             </section>
         );
     }

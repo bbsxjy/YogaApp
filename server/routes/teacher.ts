@@ -53,9 +53,9 @@ export class TeacherRoute extends BaseRoute {
     //todo: can be common methods
     public addOne(req: Request, res: Response, model: mongoose.Model<TeacherModel>) {
         let teacher: TeacherInterface = {
-            name: "孙婷婷",
-            id: "1",
-            coursesEnrolled: ["1","2"]
+            name: "王平",
+            id: "2",
+            coursesEnrolled: ["2","3"]
         };
         new model(teacher)
             .save()

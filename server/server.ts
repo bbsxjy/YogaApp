@@ -1,5 +1,6 @@
 import * as bodyParser from "body-parser";
 import * as cookieParser from "cookie-parser";
+import * as cors from "cors"
 import * as express from "express";
 import * as logger from "morgan";
 import * as path from "path";
@@ -85,6 +86,9 @@ export class Server {
 
         //use cookie parser middleware
         this.app.use(cookieParser("SECRET_GOES_HERE"));
+
+        //allow cross region calls
+        this.app.use(cors());
 
         //mount override
         this.app.use(methodOverride());

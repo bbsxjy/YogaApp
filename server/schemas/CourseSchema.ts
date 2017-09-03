@@ -2,7 +2,7 @@ import {Schema} from "mongoose";
 
 export const CourseSchema: Schema = new Schema({
     id: {
-        type:String,
+        type: String,
         index: true,
         unique: true
     },
@@ -11,5 +11,6 @@ export const CourseSchema: Schema = new Schema({
         start: String,
         end: String,
         repeatFor: [Number]
-    }
+    },
+    enrolledTeachers: [String]
 });

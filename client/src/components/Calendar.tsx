@@ -50,6 +50,8 @@ export class Calendar extends React.Component<CalendarProps,CalendarState> {
                 start: '9:00', // a start time (10am in this example)
                 end: '21:00', // an end time (6pm in this example)
             },
+            minTime: "08:00:00",
+            maxTime: "22:00:00",
             //allow event call back
             eventClick: function(calEvent, jsEvent, view) {
                 that.setState({
@@ -59,7 +61,13 @@ export class Calendar extends React.Component<CalendarProps,CalendarState> {
                 })
             }
         });
+    }
+
+    componentDidUpdate () {
+        $(node).fullCalendar('removeEvents');
         $(node).fullCalendar('addEventSource', this.props.events);
+        $(node).fullCalendar('refetchEvents');
+        $(node).fullCalendar('refetchEvents');
     }
 
     render() {
@@ -74,3 +82,4 @@ export class Calendar extends React.Component<CalendarProps,CalendarState> {
         );
     }
 }
+

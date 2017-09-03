@@ -23,10 +23,17 @@ export class SeatsModal extends React.Component<SeatsModalProps,SeatsModalState>
             showModal: false
         });
     }
+    //todo: find a better way to resolve the issue that if props change model pops out
     componentWillReceiveProps() {
-        this.setState({
-            showModal: true
-        })
+        if (this.props.className){
+            this.setState({
+                showModal: true
+            })
+        } else {
+            this.setState({
+                showModal: false
+            })
+        }
     }
     render () {
         return (

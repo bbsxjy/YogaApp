@@ -32,6 +32,7 @@ export interface CourseInterface {
     id?: string;
     name: string;
     time: TimeBlock;
+    enrolledTeachers: string[];
 }
 
 export interface SeatInterface {
