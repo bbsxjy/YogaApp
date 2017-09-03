@@ -18,6 +18,10 @@ import {TeacherSchema} from "./schemas/TeacherSchema";
 import {CourseSchema} from "./schemas/CourseSchema";
 import {SeatSchema} from "./schemas/SeatSchema";
 import {UserRoute} from "./routes/user";
+import {TeacherRoute} from "./routes/teacher";
+import {MemberRoute} from "./routes/member";
+import {CourseRoute} from "./routes/course";
+import {SeatsRoute} from "./routes/seats";
 
 export class Server {
     public app: express.Application;
@@ -122,6 +126,10 @@ export class Server {
         IndexRoute.create(this.router);
         //use router middleware
         UserRoute.create(this.router, this.model.user);
+        TeacherRoute.create(this.router, this.model.teacher);
+        MemberRoute.create(this.router, this.model.member);
+        CourseRoute.create(this.router, this.model.course);
+        SeatsRoute.create(this.router, this.model.seat);
         //ErrorRoute
         ErrorRoute.create(this.router);
 

@@ -1,7 +1,7 @@
 import {NextFunction, Request, Response, Router} from "express";
 import {BaseRoute} from "./route";
-import {UserModel} from "../models/Models";
-import {UserInterface} from "../interfaces/Interfaces";
+import {MemberModel} from "../models/Models";
+import {MemberInterface} from "../interfaces/Interfaces";
 import * as mongoose from "mongoose";
 import {GetFormattedDocResponse} from "../util/Util";
 
@@ -10,7 +10,7 @@ import {GetFormattedDocResponse} from "../util/Util";
  *
  * @class User
  */
-export class UserRoute extends BaseRoute {
+export class MemberRoute extends BaseRoute {
 
     constructor() {
         super();
@@ -23,46 +23,44 @@ export class UserRoute extends BaseRoute {
      * @method create
      * @static
      */
-    public static create(router: Router, model: mongoose.Model<UserModel>) {
+    public static create(router: Router, model: mongoose.Model<MemberModel>) {
         //log
-        console.log("Creating user api route");
+        console.log("Creating member api route");
 
         //todo: change method to post and make sure passed info is added
-        router.get("/api/user/add", (req: Request, res: Response, next: NextFunction) => {
-            new UserRoute().addOne(req, res, model);
+        router.get("/api/member/add", (req: Request, res: Response, next: NextFunction) => {
+            new MemberRoute().addOne(req, res, model);
         });
 
-        router.get("/api/user/get", (req: Request, res: Response, next: NextFunction) => {
-            new UserRoute().findAll(res, model);
+        router.get("/api/member/get", (req: Request, res: Response, next: NextFunction) => {
+            new MemberRoute().findAll(res, model);
         });
 
-        router.get("/api/user/get/:id", (req: Request, res: Response, next: NextFunction) => {
-            new UserRoute().findOneById(req, res, model);
+        router.get("/api/member/get/:id", (req: Request, res: Response, next: NextFunction) => {
+            new MemberRoute().findOneById(req, res, model);
         });
 
         //todo: change method to post and make sure passed info is updated
-        router.get("/api/user/update/:id", (req: Request, res: Response, next: NextFunction) => {
-            new UserRoute().findOneAndUpdate(req, res, model);
+        router.get("/api/member/update/:id", (req: Request, res: Response, next: NextFunction) => {
+            new MemberRoute().findOneAndUpdate(req, res, model);
         });
 
-        router.get("/api/user/remove/:id", (req: Request, res: Response, next: NextFunction) => {
-            new UserRoute().findOneAndRemove(req, res, model);
+        router.get("/api/member/remove/:id", (req: Request, res: Response, next: NextFunction) => {
+            new MemberRoute().findOneAndRemove(req, res, model);
         });
     }
 
     //todo: can be common methods
-    public addOne(req: Request, res: Response, model: mongoose.Model<UserModel>) {
-        let user: UserInterface = {
-            name: "会员1",
-            id: "999",
-            phone: [13000000000],
-            email: "bbsxjy@gmail.com",
-            username: "test",
-            password: "test",
-            auth: 0,
-            role: "member"
+    public addOne(req: Request, res: Response, model: mongoose.Model<MemberModel>) {
+        let member: MemberInterface = {
+            id: "1",
+            name: "谢靖宇",
+            phone: [5157084437],
+            address: "镇江市瑞泰新城7栋604市",
+            coursesPayed: ["1","2"],
+            coursesSelected: []
         };
-        new model(user)
+        new model(member)
             .save()
             .then(doc => {
                 res.json(
@@ -77,7 +75,7 @@ export class UserRoute extends BaseRoute {
             })
     }
 
-    public findAll(res: Response, model: mongoose.Model<UserModel>) {
+    public findAll(res: Response, model: mongoose.Model<MemberModel>) {
         model
             .find({})
             .then(doc => {
@@ -93,10 +91,10 @@ export class UserRoute extends BaseRoute {
             })
     }
 
-    public findOneById(req: Request, res: Response, model: mongoose.Model<UserModel>) {
+    public findOneById(req: Request, res: Response, model: mongoose.Model<MemberModel>) {
         const id = req.params.id;
         model
-            .find({id:id})
+            .find({id: id})
             .then(doc => {
                 if (doc.length != 0) {
                     res.json(
@@ -116,10 +114,10 @@ export class UserRoute extends BaseRoute {
             })
     }
 
-    public findOneAndUpdate(req: Request, res: Response, model: mongoose.Model<UserModel>) {
+    public findOneAndUpdate(req: Request, res: Response, model: mongoose.Model<MemberModel>) {
         const id = req.params.id;
         model
-            .findOneAndUpdate({id:id}, {name: "updated"})
+            .findOneAndUpdate({id: id}, {name: "updated"})
             .then(doc => {
                 if (doc) {
                     res.json(
@@ -139,10 +137,10 @@ export class UserRoute extends BaseRoute {
             })
     }
 
-    public findOneAndRemove(req: Request, res: Response, model: mongoose.Model<UserModel>) {
+    public findOneAndRemove(req: Request, res: Response, model: mongoose.Model<MemberModel>) {
         const id = req.params.id;
         model
-            .findOneAndRemove({id:id})
+            .findOneAndRemove({id: id})
             .then(doc => {
                 if (doc) {
                     res.json(

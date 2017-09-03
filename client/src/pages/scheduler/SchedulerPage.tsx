@@ -2,7 +2,6 @@ import * as React from "react";
 import {Calendar} from "../../components/Calendar.tsx";
 import {ListGroup, ListGroupItem, Panel} from 'react-bootstrap';
 
-
 interface SchedulerProps {
     category: number,
     id: number

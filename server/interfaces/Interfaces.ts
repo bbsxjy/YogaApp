@@ -3,8 +3,8 @@ import {UserModel, TeacherModel, SeatModel, CourseModel, MemberModel} from "../m
 export interface UserInterface {
     id?: string;
     email?: string;
-    name?: string;
-    username?: string;
+    name: string;
+    username: string;
     password?: string;
     phone?: number[];
     createdAt?: Date;
@@ -15,28 +15,28 @@ export interface UserInterface {
 
 export interface TeacherInterface {
     id?: string;
-    name?: string;
-    coursesEnrolled?: string[];
+    name: string;
+    coursesEnrolled: string[];
 }
 
 export interface MemberInterface {
     id?: string;
-    name?: string;
+    name: string;
     phone?: number[];
     address?: string;
-    coursesPayed?: string[];
-    coursesSelected?: string[];
+    coursesPayed: string[];
+    coursesSelected: string[];
 }
 
 export interface CourseInterface {
     id?: string;
-    name?: string;
+    name: string;
     time: TimeBlock;
 }
 
 export interface SeatInterface {
     id?: string;
-    seats?: SeatsBlock;
+    seats: SeatsBlock[];
 }
 
 export interface TimeBlock {
@@ -46,7 +46,8 @@ export interface TimeBlock {
 }
 
 export interface SeatsBlock {
-    isTaken: { number: boolean };
+    seatNumber: number,
+    isTaken: boolean
 }
 
 export interface ResponseInterface {
