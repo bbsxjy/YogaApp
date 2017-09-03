@@ -1,5 +1,7 @@
+import {UserModel, TeacherModel, SeatModel, CourseModel, MemberModel} from "../models/Models";
+
 export interface UserInterface {
-    id?:string;
+    id?: string;
     email?: string;
     name?: string;
     username?: string;
@@ -7,18 +9,18 @@ export interface UserInterface {
     phone?: number[];
     createdAt?: Date;
     lastActivityAt?: Date;
-    auth?: string;
+    auth?: number;
     role?: string;
 }
 
 export interface TeacherInterface {
-    id?:string;
+    id?: string;
     name?: string;
     coursesEnrolled?: string[];
 }
 
 export interface MemberInterface {
-    id?:string;
+    id?: string;
     name?: string;
     phone?: number[];
     address?: string;
@@ -44,5 +46,12 @@ export interface TimeBlock {
 }
 
 export interface SeatsBlock {
-    isTaken: {number:boolean};
+    isTaken: { number: boolean };
+}
+
+export interface ResponseInterface {
+    success: boolean;
+    error: string;
+    documents?: UserModel[] | TeacherModel[] | MemberModel[] | CourseModel[] | SeatModel[];
+    count?: number;
 }

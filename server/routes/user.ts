@@ -1,8 +1,9 @@
-import { NextFunction, Request, Response, Router } from "express";
-import { BaseRoute } from "./route";
+import {NextFunction, Request, Response, Router} from "express";
+import {BaseRoute} from "./route";
 import {UserModel} from "../models/Models";
 import {UserInterface} from "../interfaces/Interfaces";
 import * as mongoose from "mongoose";
+import {GetFormattedDocResponse} from "../util/Util";
 
 /**
  * / route
@@ -10,12 +11,7 @@ import * as mongoose from "mongoose";
  * @class User
  */
 export class UserRoute extends BaseRoute {
-    /**
-     * Constructor
-     *
-     * @class IndexRoute
-     * @constructor
-     */
+
     constructor() {
         super();
     }
@@ -29,102 +25,139 @@ export class UserRoute extends BaseRoute {
      */
     public static create(router: Router, userModel: mongoose.Model<UserModel>) {
         //log
-        console.log("Creating Api route -> ~/api/user/test.");
+        console.log("Creating user api route");
 
-        //add home page route
+        //todo: change method to post and make sure passed info is added
         router.get("/api/user/add", (req: Request, res: Response, next: NextFunction) => {
-            new UserRoute().addUser(res, userModel);
+            new UserRoute().addUser(req, res, userModel);
         });
+
         router.get("/api/user/get", (req: Request, res: Response, next: NextFunction) => {
-            new UserRoute().findOne(res, userModel);
+            new UserRoute().findAll(res, userModel);
         });
-        router.get("/api/user/remove", (req: Request, res: Response, next: NextFunction) => {
-            new UserRoute().findOneAndRemove(req, res, userModel);
+
+        router.get("/api/user/get/:id", (req: Request, res: Response, next: NextFunction) => {
+            new UserRoute().findOneById(req, res, userModel);
         });
-        router.get("/api/user/update", (req: Request, res: Response, next: NextFunction) => {
+
+        //todo: change method to post and make sure passed info is updated
+        router.get("/api/user/update/:id", (req: Request, res: Response, next: NextFunction) => {
             new UserRoute().findOneAndUpdate(req, res, userModel);
+        });
+
+        router.get("/api/user/remove/:id", (req: Request, res: Response, next: NextFunction) => {
+            new UserRoute().findOneAndRemove(req, res, userModel);
         });
     }
 
-    /**
-     * The home page route.
-     *
-     * @class IndexRoute
-     * @method index
-     * @next {NextFunction} Execute the next method.
-     */
-    public addUser(res: Response, userModel: mongoose.Model<UserModel>) {
-        let user:UserInterface = {
-            name: "test",
-            id:"1",
-            phone: [13003451622, 13805282967]
+    public addUser(req: Request, res: Response, userModel: mongoose.Model<UserModel>) {
+        let user: UserInterface = {
+            name: "会员1",
+            id: "999",
+            phone: [13000000000],
+            email: "bbsxjy@gmail.com",
+            username: "test",
+            password: "test",
+            auth: 0,
+            role: "member"
         };
         new userModel(user)
             .save()
-            .then(result => {
-                res.json('User Added Successfully!')
+            .then(doc => {
+                res.json(
+                    GetFormattedDocResponse(true, "", [doc])
+                );
             })
             .catch(err => {
-                res.json('User Added Failed!' + err.errmsg);
+                res.json(
+                    GetFormattedDocResponse(false, err, [])
+                );
                 throw err;
             })
     }
 
     public findAll(res: Response, userModel: mongoose.Model<UserModel>) {
-        console.log("All");
         userModel
             .find({})
-            .then(result => {
-                res.json(result);
+            .then(doc => {
+                res.json(
+                    GetFormattedDocResponse(true, "", doc)
+                );
             })
             .catch(err => {
-                res.json('Find All Failed!'+ err.errmsg);
+                res.json(
+                    GetFormattedDocResponse(false, err, [])
+                );
                 throw err;
             })
     }
 
-    public findOne(res: Response, userModel: mongoose.Model<UserModel>) {
-        console.log("One");
+    public findOneById(req: Request, res: Response, userModel: mongoose.Model<UserModel>) {
+        const id = req.params.id;
         userModel
-            .find({name:"test"})
-            .then(result => {
-                res.json(result);
-            })
-            .catch(err => {
-                res.json('Find One result Failed!'+ err.errmsg);
-                throw err;
-            })
-    }
-
-    public findOneAndUpdate(req:Request, res: Response, userModel: mongoose.Model<UserModel>) {
-        userModel
-            .findOneAndUpdate({name:"test"},{name:"Tewwwwst"})
-            .then(result => {
-                if (result) {
-                    res.json('Update Success!');
-                }else{
-                    res.json('No such result found!');
+            .find({id:id})
+            .then(doc => {
+                if (doc.length != 0) {
+                    res.json(
+                        GetFormattedDocResponse(true, "", doc)
+                    );
+                } else {
+                    res.json(
+                        GetFormattedDocResponse(false, "No results found", [])
+                    );
                 }
             })
             .catch(err => {
-                res.json('Update result Failed!'+ err.errmsg);
+                res.json(
+                    GetFormattedDocResponse(false, err, [])
+                );
                 throw err;
-            });
+            })
     }
 
-    public findOneAndRemove(req:Request, res: Response, userModel: mongoose.Model<UserModel>) {
+    public findOneAndUpdate(req: Request, res: Response, userModel: mongoose.Model<UserModel>) {
+        const id = req.params.id;
         userModel
-            .findOneAndRemove({name:"test"})
-            .then(result => {
-                if (result) {
-                    res.json('Remove Success!');
-                }else{
-                    res.json('No such result found!');
+            .findOneAndUpdate({id:id}, {name: "updated"})
+            .then(doc => {
+                if (doc) {
+                    res.json(
+                        GetFormattedDocResponse(true, "", [])
+                    );
+                } else {
+                    res.json(
+                        GetFormattedDocResponse(false, "No such doc exits", [])
+                    );
                 }
             })
             .catch(err => {
-                res.json('Remove result Failed!'+ err);
+                res.json(
+                    GetFormattedDocResponse(false, err, [])
+                );
                 throw err;
-            });
+            })
+    }
+
+    public findOneAndRemove(req: Request, res: Response, userModel: mongoose.Model<UserModel>) {
+        const id = req.params.id;
+        userModel
+            .findOneAndRemove({id:id})
+            .then(doc => {
+                if (doc) {
+                    res.json(
+                        GetFormattedDocResponse(true, "", [doc])
+                    );
+                } else {
+                    res.json(
+                        GetFormattedDocResponse(false, "No such doc exits", [])
+                    );
+                }
+            })
+            .catch(err => {
+                res.json(
+                    GetFormattedDocResponse(false, err, [])
+                );
+                throw err;
+            })
     }
 }

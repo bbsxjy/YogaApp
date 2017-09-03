@@ -2,7 +2,7 @@ import {Schema} from "mongoose";
 
 export const UserSchema: Schema = new Schema({
     id: {
-        type:String,
+        type: String,
         index: true,
         unique: true
     },
