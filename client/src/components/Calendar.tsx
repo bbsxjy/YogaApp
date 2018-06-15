@@ -16,8 +16,8 @@ interface CalendarState {
 }
 
 export class Calendar extends React.Component<CalendarProps,CalendarState> {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             className: "",
             classId: 0,

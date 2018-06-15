@@ -11,8 +11,8 @@ interface SeatsModalState {
     showModal: boolean
 }
 export class SeatsModal extends React.Component<SeatsModalProps,SeatsModalState> {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             showModal: false
         };

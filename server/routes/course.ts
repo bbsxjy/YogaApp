@@ -53,14 +53,14 @@ export class CourseRoute extends BaseRoute {
     //todo: can be common methods
     public addOne(req: Request, res: Response, model: mongoose.Model<CourseModel>) {
         let course: CourseInterface = {
-            id: "1",
-            name: "热力瑜伽",
+            id: "3",
+            name: "产孕瑜伽",
             time: {
-                start: "09:30:00",
-                end: "11:30:00",
-                repeatFor: [2,4,5]
+                start: "16:00:00",
+                end: "17:00:00",
+                repeatFor: [2,4]
             },
-            enrolledTeachers: ["1","2"]
+            enrolledTeachers: ["2"]
         };
         new model(course)
             .save()

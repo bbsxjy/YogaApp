@@ -12,8 +12,8 @@ interface NavigationBarState {
 }
 
 export class NavigationBar extends React.Component<NavigationBarProps, NavigationBarState> {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             shrink: ""
         };

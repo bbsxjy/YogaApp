@@ -1,7 +1,12 @@
 import * as React from "react";
 import {Calendar} from "../../components/Calendar.tsx";
 import {ListGroup, ListGroupItem, Panel} from 'react-bootstrap';
+import * as Routes from "../../routes.ts";
+import {Link} from "react-router-dom";
+import * as query from 'query-string'
 import axios from 'axios';
+import {GetSchedulerSearchString} from "../../utils/Utils.tsx";
+import {Id} from '../../utils/Interfaces.tsx'
 
 interface SchedulerProps {
 }
@@ -12,7 +17,7 @@ interface SchedulerStates {
 
 export class SchedulerPage extends React.Component<SchedulerProps,SchedulerStates> {
 
-    constructor() {
+    constructor(props) {
         super();
         this.state = {
             events: []
@@ -42,6 +47,10 @@ export class SchedulerPage extends React.Component<SchedulerProps,SchedulerState
             })
     }
 
+    componentWillUpdate() {
+        console.log(location.search);
+    }
+
     render () {
         return (
             <section className="container">
@@ -51,20 +60,62 @@ export class SchedulerPage extends React.Component<SchedulerProps,SchedulerState
                         <ListGroupItem>
                             <ListGroup fill className="list-inline">
                                 按授课老师：
-                                <ListGroupItem className="borderless"><a>全部</a></ListGroupItem>
-                                <ListGroupItem className="borderless"><a>孙老师</a></ListGroupItem>
-                                <ListGroupItem className="borderless"><a>王老师</a></ListGroupItem>
-                                <ListGroupItem className="borderless"><a>小琴老师</a></ListGroupItem>
+                                <ListGroupItem className="borderless"><Link to={Routes.scheduler}>全部</Link></ListGroupItem>
+                                <ListGroupItem className="borderless">
+                                    <Link to={{
+                                        pathname:'/scheduler',
+                                        search: GetSchedulerSearchString(location.search, "teacher_id", "1")
+                                    }}>
+                                        孙老师
+                                    </Link>
+                                </ListGroupItem>
+                                <ListGroupItem className="borderless">
+                                    <Link to={{
+                                        pathname:'/scheduler',
+                                        search: GetSchedulerSearchString(location.search, "teacher_id", "2")
+                                    }}>
+                                        王老师
+                                    </Link>
+                                </ListGroupItem>
+                                <ListGroupItem className="borderless">
+                                    <Link to={{
+                                        pathname:'/scheduler',
+                                        search: GetSchedulerSearchString(location.search, "teacher_id", "3")
+                                    }}>
+                                        朱老师
+                                    </Link>
+                                </ListGroupItem>
                             </ListGroup>
                         </ListGroupItem>
 
                         <ListGroupItem>
                             <ListGroup fill className="list-inline">
                                 按课程名称：
-                                <ListGroupItem className="borderless"><a>全部</a></ListGroupItem>
-                                <ListGroupItem className="borderless"><a>阿诗汤加</a></ListGroupItem>
-                                <ListGroupItem className="borderless"><a>空中瑜伽</a></ListGroupItem>
-                                <ListGroupItem className="borderless"><a>产孕瑜伽</a></ListGroupItem>
+                                <ListGroupItem className="borderless"><Link to={Routes.scheduler}>全部</Link></ListGroupItem>
+                                <ListGroupItem className="borderless">
+                                    <Link to={{
+                                        pathname:'/scheduler',
+                                        search: GetSchedulerSearchString(location.search, "course_id", "1")
+                                    }}>
+                                        空中瑜伽
+                                    </Link>
+                                </ListGroupItem>
+                                <ListGroupItem className="borderless">
+                                    <Link to={{
+                                        pathname:'/scheduler',
+                                        search: GetSchedulerSearchString(location.search, "course_id", "2")
+                                    }}>
+                                        热力瑜伽
+                                    </Link>
+                                </ListGroupItem>
+                                <ListGroupItem className="borderless">
+                                    <Link to={{
+                                        pathname:'/scheduler',
+                                        search: GetSchedulerSearchString(location.search, "course_id", "3")
+                                    }}>
+                                        产孕瑜伽
+                                    </Link>
+                                </ListGroupItem>
                             </ListGroup>
                         </ListGroupItem>
 

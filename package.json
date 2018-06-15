@@ -72,6 +72,7 @@
     "path": "^0.12.7",
     "pug": "^2.0.0-rc.3",
     "q": "^1.5.0",
+    "query-string": "^5.0.0",
     "react": "^15.6.1",
     "react-bootstrap": "^0.31.2",
     "react-bootstrap-table": "^4.0.0",
